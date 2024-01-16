@@ -1,0 +1,22 @@
+@import "../../variables/constants.scss";
+
+.fretboard {
+    --board-width: 75vw;
+    width: 500px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin-bottom: -1px;
+    border: $fretboard-border-width solid;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    &.bottom {
+        height: 0;
+    }
+}

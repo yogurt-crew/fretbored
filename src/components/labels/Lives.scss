@@ -1,0 +1,12 @@
+.lives {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.dead {
+    opacity: 50%;
+}
