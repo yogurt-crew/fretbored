@@ -1,0 +1,43 @@
+.settings-dialog {
+    position: absolute;
+    top: calc(50% + 34px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    width: 500px;
+    height: 275px;
+    border: 5px solid;
+    flex-direction: column;
+    background-color: black;
+}
+
+.settings-header {
+    width: 100%;
+    height: 25px;
+}
+
+.settings-icon {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.close {
+    float: right;
+    color: white;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.seven {
+    padding: 10px 20px;
+    height: 25px;
+    color: white;
+}
+
+.scale {
+    padding: 10px 20px;
+    height: 25px;
+    color: white;
+}

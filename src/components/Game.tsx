@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './Game.scss'
 import Fretboard from './fretboard/Fretboard';
-import { cShape, aShape, gShape, eShape, dShape, majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven, Mode, Fret, ScaleShape, Chord } from '../variables/constants';
+import { cShape, aShape, gShape, eShape, dShape, majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven, Mode, Fret, ScaleShape, Chord, majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven } from '../variables/constants';
 import Label from './labels/Label';
 import Score from './labels/Score';
 import Lives from './labels/Lives';
-import { isNullishCoalesce } from 'typescript';
+import Settings from './settings/Settings';
 
 const scales = [cShape, aShape, gShape, eShape, dShape];
-const chords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
+const diatonicChords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
+const diatonicChordsWithSeven = [majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven];
 
 const Game = () => {
     const [scale, setScale] = useState<ScaleShape | null>(null);
     const [chord, setChord] = useState<Chord | null>(null);
+    const [withSeven, setWithSeven] = useState(true);
+    const [useScaleMode, setUseScaleMode] = useState(false);
     const [board, setBoard] = useState<Fret[][]>([]);
     const [mode, setMode] = useState(Mode.Loading);
     const [label, setLabel] = useState('');
@@ -25,8 +28,15 @@ const Game = () => {
 
     useEffect(() => {
         if (mode === Mode.Chord && checkAllChordTonesClicked()) {
-            setMode(Mode.Scale);
-            setLabel(scale?.label ?? '');
+            if (useScaleMode) {
+                setMode(Mode.Scale);
+                setLabel(scale?.label ?? '');
+            }
+            else {
+                setMode(Mode.Loading);
+                setLabel('');
+                winRound();
+            }
         }
         else if (mode === Mode.Scale && checkAllScaleDegreesClicked()) {
             setMode(Mode.Loading);
@@ -43,7 +53,12 @@ const Game = () => {
 
     const newScaleAndChord = () => {
         setScale(scales[Math.floor(Math.random() * scales.length)]);
-        setChord(chords[Math.floor(Math.random() * chords.length)]);
+        if (withSeven) {
+            setChord(diatonicChordsWithSeven[Math.floor(Math.random() * diatonicChordsWithSeven.length)]);
+        }
+        else {
+            setChord(diatonicChords[Math.floor(Math.random() * diatonicChords.length)]);
+        }
     }
 
     const resetBoard = () => {
@@ -54,9 +69,9 @@ const Game = () => {
             row.forEach((num, j) => {
                 let fret: Fret = {
                     isChordTone: chord?.degrees.has(num) ?? false,
-                    inScale: num != "X",
+                    inScale: num !== "X",
                     degree: num,
-                    wrong: num == "X",
+                    wrong: num === "X",
                     show: false
                 }
                 if (fret.isChordTone) {
@@ -113,7 +128,7 @@ const Game = () => {
     }
 
     const handleFretClick = (i: number, j: number) => {
-        if(lives === 0) {
+        if (lives === 0) {
             loseGame();
         }
         if (mode === Mode.FailedRound) {
@@ -161,7 +176,10 @@ const Game = () => {
         <div className="header">
             <Score currentScore={score} />
             <Label label={label} />
-            <Lives lives={lives} />
+            <div className='settings-lives'>
+                <Lives lives={lives} />
+                <Settings withSeven={withSeven} setWithSeven={setWithSeven} useScaleMode={useScaleMode} setUseScaleMode={setUseScaleMode} />
+            </div>
         </div>
         <Fretboard board={board} handleFretClick={handleFretClick} />
     </div>
