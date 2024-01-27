@@ -21,7 +21,7 @@ const Fretboard = (props: { board: FretObj[][], handleFretClick: (i: number, j: 
             {props.board.map((row, i) => {
                 return <div key={i} className={`row ${i == 5 ? 'bottom' : ''}`}>
                     {row.map((fret, j) =>
-                        <Fret key={`${i} ${j}`} show={fret.show} handleFretClick={props.handleFretClick} row={i} col={j} bottom={i == 5} degree={fret.degree} noteType={getNoteType(i, j)} wrong={fret.wrong}/>
+                        <Fret key={`${i} ${j}`} show={fret.show} handleFretClick={props.handleFretClick} row={i} col={j} bottom={i == 5} degree={fret.degree} noteType={getNoteType(i, j)} wrong={fret.wrong} numFrets={props.board[0].length}/>
                     )}
                 </div>
             })}

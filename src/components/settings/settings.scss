@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    width: 500px;
+    width: 550px;
     height: 275px;
     border: 5px solid;
     flex-direction: column;
@@ -16,10 +16,13 @@
     height: 25px;
 }
 
+.settings-icon-container {
+    text-align: center;
+    width: 51px;
+}
+
 .settings-icon {
-    &:hover {
-        cursor: pointer;
-    }
+    cursor: pointer;
 }
 
 .close {

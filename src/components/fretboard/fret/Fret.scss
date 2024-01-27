@@ -1,7 +1,6 @@
 @import "../../../variables/constants.scss";
 
-
-.fret {
+.five-frets {
     width: calc(100%/5); 
     height: 100%;
     border: $fretboard-border-width solid;
@@ -31,6 +30,60 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            font-weight: bold;
+            &.chord-tone {
+                background-color: #ADD8E6;
+            }
+            &.scale-degree {
+                background-color: #E0B0FF;
+            }
+            &.wrong-chord {
+                background-color: #0096FF;
+            }
+            &.wrong-scale {
+                background-color: red;
+            }
+        }
+    }
+
+    &.bottom {
+        border: none;
+        .hitbox{
+            margin-top: calc(-1 * (var(--hitbox-height) / 2));
+        }
+    }
+}
+
+.twelve-frets {
+    width: calc(100%/12); 
+    height: 100%;
+    border: $fretboard-border-width solid;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .hitbox {
+        --hitbox-height: 48px;
+        --hitbox-width: 115px;
+        width: var(--hitbox-width);
+        height: var(--hitbox-height);
+        margin-top: calc(-1 * (var(--hitbox-height) / 2 + ($fretboard-border-width)));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .fret-number {
+            --fret-number-height: 20px;
+            --fret-number-width: 20px;
+            width: var(--fret-number-width);
+            height: var(--fret-number-height);
+            border-radius: 50%;
+            border: calc($fretboard-border-width) solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
             font-weight: bold;
             &.chord-tone {
                 background-color: #ADD8E6;

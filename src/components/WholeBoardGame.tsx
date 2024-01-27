@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import './Game.scss'
+import './WholeBoardGame.scss'
 import Fretboard from './fretboard/Fretboard';
-import { cShape, aShape, gShape, eShape, dShape, majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven, Mode, Fret, ScaleShape, Chord, majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven } from '../variables/constants';
+import { eMajorScale, majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven, Mode, Fret, ScaleShape, Chord, majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven } from '../variables/constants';
 import Label from './labels/Label';
 import Score from './labels/Score';
 import Lives from './labels/Lives';
 import Settings from './settings/Settings';
 import HomeIcon from './home/HomeIcon';
 
-const scales = [cShape, aShape, gShape, eShape, dShape];
+const scales = [eMajorScale];
 const diatonicChords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
 const diatonicChordsWithSeven = [majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven];
 
-const Game = (props: { setChoose: () => void }) => {
+const WholeBoardGame = (props: { setChoose: () => void }) => {
     const [scale, setScale] = useState<ScaleShape | null>(null);
     const [chord, setChord] = useState<Chord | null>(null);
     const [withSeven, setWithSeven] = useState(true);
@@ -187,4 +187,4 @@ const Game = (props: { setChoose: () => void }) => {
     </div>
 }
 
-export default Game;
+export default WholeBoardGame;

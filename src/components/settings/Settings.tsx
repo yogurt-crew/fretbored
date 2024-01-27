@@ -14,8 +14,8 @@ const Settings = (props: { withSeven: boolean, setWithSeven: Dispatch<SetStateAc
     }
 
     return <>
-        <div onClick={onClickIcon} className="settings-icon">
-            <SettingsIcon />
+        <div className="settings-icon-container">
+            <SettingsIcon onClick={onClickIcon} className="settings-icon"/>
         </div>
         {
             showDialog &&
