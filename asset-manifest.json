@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/fretbored/static/css/main.7e3400f0.css",
-    "main.js": "/fretbored/static/js/main.f388ef0b.js",
+    "main.css": "/fretbored/static/css/main.afd2f4ca.css",
+    "main.js": "/fretbored/static/js/main.dc0ae84f.js",
     "static/js/787.1c7bc109.chunk.js": "/fretbored/static/js/787.1c7bc109.chunk.js",
     "index.html": "/fretbored/index.html",
-    "main.7e3400f0.css.map": "/fretbored/static/css/main.7e3400f0.css.map",
-    "main.f388ef0b.js.map": "/fretbored/static/js/main.f388ef0b.js.map",
+    "main.afd2f4ca.css.map": "/fretbored/static/css/main.afd2f4ca.css.map",
+    "main.dc0ae84f.js.map": "/fretbored/static/js/main.dc0ae84f.js.map",
     "787.1c7bc109.chunk.js.map": "/fretbored/static/js/787.1c7bc109.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7e3400f0.css",
-    "static/js/main.f388ef0b.js"
+    "static/css/main.afd2f4ca.css",
+    "static/js/main.dc0ae84f.js"
   ]
 }
