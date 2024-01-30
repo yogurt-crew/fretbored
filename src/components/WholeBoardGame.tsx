@@ -11,6 +11,13 @@ import HomeIcon from './home/HomeIcon';
 const diatonicChords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
 const diatonicChordsWithSeven = [majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven];
 
+const chordsEqual = (chord1?: Chord | null, chord2?: Chord): boolean => {
+    if (!chord1 || !chord2) {
+        return false;
+    }
+    return chord1?.degrees && chord2?.degrees && chord1.degrees.size === chord2.degrees.size && Array.from(chord1.degrees).every(value => chord2.degrees.has(value));
+}
+
 const WholeBoardGame = (props: { setChoose: () => void }) => {
     const [scale, setScale] = useState<ScaleShape | null>(null);
     const [chord, setChord] = useState<Chord | null>(null);
@@ -51,28 +58,35 @@ const WholeBoardGame = (props: { setChoose: () => void }) => {
         }
     }, [scale, chord]);
 
-    const randomizeKey = (scale: string[][]) : string[][] => {
+    const randomizeKey = (scale: string[][]): string[][] => {
         let newScale: string[][] = [];
         const startInd: number = Math.floor(Math.random() * scale[0].length);
-        for(let r = 0; r < scale.length; r++) {
+        for (let r = 0; r < scale.length; r++) {
             newScale.push([]);
-            for(let c = 0; c < scale[0].length; c++) {
-                console.log(r,c);
-                newScale[r].push(scale[r][(startInd+c)%scale[0].length]);
+            for (let c = 0; c < scale[0].length; c++) {
+                newScale[r].push(scale[r][(startInd + c) % scale[0].length]);
             }
         }
         return newScale;
     }
 
     const newScaleAndChord = () => {
-        const randomScale = eMajorScale;
+        let randomScale = eMajorScale;
         randomScale.shape = randomizeKey(randomScale.shape);
         setScale(randomScale);
         if (withSeven) {
-            setChord(diatonicChordsWithSeven[Math.floor(Math.random() * diatonicChordsWithSeven.length)]);
+            let randomChordWithSeven = diatonicChordsWithSeven[Math.floor(Math.random() * diatonicChordsWithSeven.length)];
+            if (chordsEqual(chord, randomChordWithSeven)) {
+                randomChordWithSeven = diatonicChordsWithSeven[(Math.floor(Math.random() * diatonicChordsWithSeven.length) + 1) % diatonicChordsWithSeven.length];
+            }
+            setChord(randomChordWithSeven);
         }
         else {
-            setChord(diatonicChords[Math.floor(Math.random() * diatonicChords.length)]);
+            let randomChord = diatonicChords[Math.floor(Math.random() * diatonicChords.length)];
+            if (chordsEqual(chord, randomChord)) {
+                randomChord = diatonicChords[(Math.floor(Math.random() * diatonicChordsWithSeven.length) + 1) % diatonicChordsWithSeven.length];
+            }
+            setChord(randomChord);
         }
     }
 
@@ -194,7 +208,7 @@ const WholeBoardGame = (props: { setChoose: () => void }) => {
             <div className='settings-lives'>
                 <Lives lives={lives} />
                 <Settings withSeven={withSeven} setWithSeven={setWithSeven} useScaleMode={useScaleMode} setUseScaleMode={setUseScaleMode} />
-                <HomeIcon setChoose={props.setChoose}/>
+                <HomeIcon setChoose={props.setChoose} />
             </div>
         </div>
         <Fretboard board={board} handleFretClick={handleFretClick} />
