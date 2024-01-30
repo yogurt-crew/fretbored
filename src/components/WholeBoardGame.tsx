@@ -8,7 +8,6 @@ import Lives from './labels/Lives';
 import Settings from './settings/Settings';
 import HomeIcon from './home/HomeIcon';
 
-const scales = [eMajorScale];
 const diatonicChords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
 const diatonicChordsWithSeven = [majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven];
 
@@ -52,8 +51,23 @@ const WholeBoardGame = (props: { setChoose: () => void }) => {
         }
     }, [scale, chord]);
 
+    const randomizeKey = (scale: string[][]) : string[][] => {
+        let newScale: string[][] = [];
+        const startInd: number = Math.floor(Math.random() * scale[0].length);
+        for(let r = 0; r < scale.length; r++) {
+            newScale.push([]);
+            for(let c = 0; c < scale[0].length; c++) {
+                console.log(r,c);
+                newScale[r].push(scale[r][(startInd+c)%scale[0].length]);
+            }
+        }
+        return newScale;
+    }
+
     const newScaleAndChord = () => {
-        setScale(scales[Math.floor(Math.random() * scales.length)]);
+        const randomScale = eMajorScale;
+        randomScale.shape = randomizeKey(randomScale.shape);
+        setScale(randomScale);
         if (withSeven) {
             setChord(diatonicChordsWithSeven[Math.floor(Math.random() * diatonicChordsWithSeven.length)]);
         }
