@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Game.scss'
 import Fretboard from './fretboard/Fretboard';
-import { cShape, aShape, gShape, eShape, dShape, majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven, Mode, Fret, ScaleShape, Chord, majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven } from '../variables/constants';
+import { scales, diatonicChords, diatonicChordsWithSeven, Mode, Fret, ScaleShape, Chord } from '../variables/constants';
 import Label from './labels/Label';
 import Score from './labels/Score';
 import Lives from './labels/Lives';
 import Settings from './settings/Settings';
 import HomeIcon from './home/HomeIcon';
-
-const scales = [cShape, aShape, gShape, eShape, dShape];
-const diatonicChords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
-const diatonicChordsWithSeven = [majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven];
 
 const Game = (props: { setChoose: () => void }) => {
     const [scale, setScale] = useState<ScaleShape | null>(null);
@@ -180,7 +176,7 @@ const Game = (props: { setChoose: () => void }) => {
             <div className='settings-lives'>
                 <Lives lives={lives} />
                 <Settings withSeven={withSeven} setWithSeven={setWithSeven} useScaleMode={useScaleMode} setUseScaleMode={setUseScaleMode} />
-                <HomeIcon setChoose={props.setChoose}/>
+                <HomeIcon setChoose={props.setChoose} />
             </div>
         </div>
         <Fretboard board={board} handleFretClick={handleFretClick} />

@@ -16,12 +16,26 @@ const Fretboard = (props: { board: FretObj[][], handleFretClick: (i: number, j: 
         return NoteType.OutOfKey;
     }
 
+    const range: number[] = ((): number[] => {
+        let min = -1;
+        let max = 0;
+        props.board.forEach((row, i) => {
+            row.forEach((fret, j) => {
+                if(fret.isChordTone) {
+                    min = min === -1 ? i : min;
+                    max = Math.max(max, i);
+                }
+            })
+        })
+        return [min, max];
+    })();
+
     return (
         <div className="fretboard">
             {props.board.map((row, i) => {
                 return <div key={i} className={`row ${i == 5 ? 'bottom' : ''}`}>
                     {row.map((fret, j) =>
-                        <Fret key={`${i} ${j}`} show={fret.show} handleFretClick={props.handleFretClick} row={i} col={j} bottom={i == 5} degree={fret.degree} noteType={getNoteType(i, j)} wrong={fret.wrong} numFrets={props.board[0].length}/>
+                        <Fret key={`${i} ${j}`} show={fret.show} handleFretClick={props.handleFretClick} row={i} col={j} bottom={i == 5} degree={fret.degree} noteType={getNoteType(i, j)} wrong={fret.wrong} numFrets={props.board[0].length} range={range}/>
                     )}
                 </div>
             })}

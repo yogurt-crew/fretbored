@@ -15,7 +15,7 @@ export interface ScaleShape {
     label: string,
     shape: string[][]
 }
-export const cShape: ScaleShape = {
+const cShape: ScaleShape = {
     label: "C Shape",
     shape: [
         ["X", "3", "4", "X", "5"],
@@ -26,7 +26,7 @@ export const cShape: ScaleShape = {
         ["X", "3", "4", "X", "5"]
     ]
 }
-export const aShape: ScaleShape = {
+const aShape: ScaleShape = {
     label: "A Shape",
     shape: [
         ["X", "5", "X", "6", "X"],
@@ -37,7 +37,7 @@ export const aShape: ScaleShape = {
         ["X", "5", "X", "6", "X"]
     ]
 };
-export const gShape: ScaleShape = {
+const gShape: ScaleShape = {
     label: "G Shape",
     shape: [
         ["X", "6", "X", "7", "1"],
@@ -48,7 +48,7 @@ export const gShape: ScaleShape = {
         ["X", "6", "X", "7", "1"]
     ]
 };
-export const eShape: ScaleShape = {
+const eShape: ScaleShape = {
     label: "E Shape",
     shape: [
         ["X", "7", "1", "X", "2"],
@@ -59,7 +59,7 @@ export const eShape: ScaleShape = {
         ["X", "7", "1", "X", "2"]
     ]
 };
-export const dShape: ScaleShape = {
+const dShape: ScaleShape = {
     label: "D Shape",
     shape: [
         ["X", "2", "X", "3", "4"],
@@ -70,67 +70,71 @@ export const dShape: ScaleShape = {
         ["X", "2", "X", "3", "4"]
     ]
 };
+export const scales: ScaleShape[] = [cShape, aShape, gShape, eShape, dShape];
 
 export interface Chord {
     label: string,
     degrees: Set<string>
 }
-export const majorOne: Chord = {
+const majorOne: Chord = {
     label: "Ⅰ",
     degrees: new Set(["1", "3", "5"])
 };
-export const minorTwo: Chord = {
+const minorTwo: Chord = {
     label: "ⅱ",
     degrees: new Set(["2", "4", "6"])
 };
-export const minorThree: Chord = {
+const minorThree: Chord = {
     label: "ⅲ",
     degrees: new Set(["3", "5", "7"])
 };
-export const majorFour: Chord = {
+const majorFour: Chord = {
     label: "Ⅳ",
     degrees: new Set(["4", "6", "1"])
 };
-export const majorFive: Chord = {
+const majorFive: Chord = {
     label: "Ⅴ",
     degrees: new Set(["5", "7", "2"])
 };
-export const minorSix: Chord = {
+const minorSix: Chord = {
     label: "ⅵ",
     degrees: new Set(["6", "1", "3"])
 };
-export const diminishedSeven: Chord = {
+const diminishedSeven: Chord = {
     label: "ⅶ°",
     degrees: new Set(["7", "2", "4"])
 };
-export const majorOneSeven: Chord = {
+const majorOneSeven: Chord = {
     label: "Ⅰ",
     degrees: new Set(["1", "3", "5", "7"])
 };
-export const minorTwoSeven: Chord = {
+const minorTwoSeven: Chord = {
     label: "ⅱ",
     degrees: new Set(["2", "4", "6", "1"])
 };
-export const minorThreeSeven: Chord = {
+const minorThreeSeven: Chord = {
     label: "ⅲ",
     degrees: new Set(["3", "5", "7", "2"])
 };
-export const majorFourSeven: Chord = {
+const majorFourSeven: Chord = {
     label: "Ⅳ",
     degrees: new Set(["4", "6", "1", "3"])
 };
-export const dominantFiveSeven: Chord = {
+const dominantFiveSeven: Chord = {
     label: "Ⅴ",
     degrees: new Set(["5", "7", "2", "4"])
 };
-export const minorSixSeven: Chord = {
+const minorSixSeven: Chord = {
     label: "ⅵ",
     degrees: new Set(["6", "1", "3", "5"])
 };
-export const halfDiminishedSeven: Chord = {
+const halfDiminishedSeven: Chord = {
     label: "ⅶ°",
     degrees: new Set(["7", "2", "4", "6"])
 };
+export const diatonicChords = [majorOne, minorTwo, minorThree, majorFour, majorFive, minorSix, diminishedSeven];
+export const diatonicChordsWithSeven = [majorOneSeven, minorTwoSeven, minorThreeSeven, majorFourSeven, dominantFiveSeven, minorSixSeven, halfDiminishedSeven];
+
 export interface Fret {
     isChordTone: boolean,
     inScale: boolean,
@@ -139,14 +143,24 @@ export interface Fret {
     show: boolean
 }
 
-export const eMajorScale: ScaleShape = {
-    label: "E Major",
-    shape: [
+export const eMajorScale: string[][] =
+    [
         ["X", "2", "X", "3", "4", "X", "5", "X", "6", "X", "7", "1"],
         ["X", "6", "X", "7", "1", "X", "2", "X", "3", "4", "X", "5"],
         ["3", "4", "X", "5", "X", "6", "X", "7", "1", "X", "2", "X"],
         ["7", "1", "X", "2", "X", "3", "4", "X", "5", "X", "6", "X"],
         ["X", "5", "X", "6", "X", "7", "1", "X", "2", "X", "3", "4"],
         ["X", "2", "X", "3", "4", "X", "5", "X", "6", "X", "7", "1"],
-    ]
-};
+    ];
+
+export const randomizeKey = (scale: string[][]): string[][] => {
+    let newScale: string[][] = [];
+    const startInd: number = Math.floor(Math.random() * scale[0].length);
+    for (let r = 0; r < scale.length; r++) {
+        newScale.push([]);
+        for (let c = 0; c < scale[0].length; c++) {
+            newScale[r].push(scale[r][(startInd + c) % scale[0].length]);
+        }
+    }
+    return newScale;
+}

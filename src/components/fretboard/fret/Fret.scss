@@ -1,7 +1,7 @@
 @import "../../../variables/constants.scss";
 
 .five-frets {
-    width: calc(100%/5); 
+    width: calc(100%/5);
     height: 100%;
     border: $fretboard-border-width solid;
     box-sizing: border-box;
@@ -31,15 +31,19 @@
             justify-content: center;
             font-size: 20px;
             font-weight: bold;
+
             &.chord-tone {
                 background-color: #ADD8E6;
             }
+
             &.scale-degree {
                 background-color: #E0B0FF;
             }
+
             &.wrong-chord {
                 background-color: #0096FF;
             }
+
             &.wrong-scale {
                 background-color: red;
             }
@@ -48,20 +52,38 @@
 
     &.bottom {
         border: none;
-        .hitbox{
+
+        .hitbox {
             margin-top: calc(-1 * (var(--hitbox-height) / 2));
         }
     }
 }
 
 .twelve-frets {
-    width: calc(100%/12); 
+    width: calc(100%/12);
     height: 100%;
     border: $fretboard-border-width solid;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+
+    // HOrrible code
+    &.triad-string {
+        border-left: 0.25rem solid #4B9CD3;
+        border-right: 0.25rem solid #4B9CD3;;
+        border-top: 0.25rem solid #4B9CD3;;
+        border-bottom: 0.25rem solid #4B9CD3;;
+    }
+
+    &.triad-bottom-string {
+        border-top: 0.25rem solid #4B9CD3;;
+    }
+
+    &.triad-above-top-string {
+        border-bottom: 0.25rem solid #4B9CD3;;
+    }
 
     .hitbox {
         --hitbox-height: 48px;
@@ -85,15 +107,19 @@
             justify-content: center;
             font-size: 15px;
             font-weight: bold;
+
             &.chord-tone {
                 background-color: #ADD8E6;
             }
+
             &.scale-degree {
                 background-color: #E0B0FF;
             }
+
             &.wrong-chord {
                 background-color: #0096FF;
             }
+
             &.wrong-scale {
                 background-color: red;
             }
@@ -102,7 +128,8 @@
 
     &.bottom {
         border: none;
-        .hitbox{
+
+        .hitbox {
             margin-top: calc(-1 * (var(--hitbox-height) / 2));
         }
     }

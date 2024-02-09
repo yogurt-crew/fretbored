@@ -28,20 +28,7 @@
     font-size: 40px;
 }
 
-.shape-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    margin-bottom: 5px;
-    border-radius: 5px;;
-    padding: 5px;
-    background-color: rgb(137, 137, 137);
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.board-box {
+.game-option-box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,5 +38,4 @@
     background-color: rgb(137, 137, 137);
     font-size: 30px;
     cursor: pointer;
-
 }

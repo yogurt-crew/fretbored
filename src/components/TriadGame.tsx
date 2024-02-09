@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './WholeBoardGame.scss'
+import './TriadGame.scss'
 import Fretboard from './fretboard/Fretboard';
 import { diatonicChords, diatonicChordsWithSeven, eMajorScale, Mode, Fret, ScaleShape, Chord, randomizeKey } from '../variables/constants';
 import Label from './labels/Label';
@@ -15,15 +15,16 @@ const chordsEqual = (chord1?: Chord | null, chord2?: Chord): boolean => {
     return chord1?.degrees && chord2?.degrees && chord1.degrees.size === chord2.degrees.size && Array.from(chord1.degrees).every(value => chord2.degrees.has(value));
 }
 
-const WholeBoardGame = (props: { setChoose: () => void }) => {
+const TriadGame = (props: { setChoose: () => void }) => {
     const [scale, setScale] = useState<string[][] | null>(null);
     const [chord, setChord] = useState<Chord | null>(null);
-    const [withSeven, setWithSeven] = useState(true);
+    const [withSeven, setWithSeven] = useState(false);
     const [board, setBoard] = useState<Fret[][]>([]);
     const [mode, setMode] = useState(Mode.Loading);
     const [label, setLabel] = useState('');
     const [score, setScore] = useState(0);
     const [lives, setLives] = useState(3);
+    const [useAllStrings, setUseAllStrings] = useState(false);
 
     useEffect(() => {
         newScaleAndChord();
@@ -78,14 +79,18 @@ const WholeBoardGame = (props: { setChoose: () => void }) => {
     const resetBoard = () => {
         let firstOptions: number[][] = [];
         let tempBoard: Fret[][] = [];
+        const bottomString = useAllStrings ? Math.floor(Math.random() * 4) : 0;
+        const topString = bottomString + 2;
         scale?.forEach((row, i) => {
             tempBoard.push(new Array<Fret>(5));
+            const inRange = i >= bottomString && i <= topString;
+            console.log(bottomString, topString, i, inRange);
             row.forEach((num, j) => {
                 let fret: Fret = {
-                    isChordTone: chord?.degrees.has(num) ?? false,
-                    inScale: num !== "X",
+                    isChordTone: (inRange && chord?.degrees.has(num)) ?? false,
+                    inScale: false,
                     degree: num,
-                    wrong: num === "X",
+                    wrong: num === "X" || !inRange,
                     show: false
                 }
                 if (fret.isChordTone) {
@@ -162,7 +167,7 @@ const WholeBoardGame = (props: { setChoose: () => void }) => {
             <Label label={label} />
             <div className='settings-lives'>
                 <Lives lives={lives} />
-                <Settings withSeven={withSeven} setWithSeven={setWithSeven} />
+                <Settings withSeven={withSeven} setWithSeven={setWithSeven} useAllStrings={useAllStrings} setUseAllStrings={setUseAllStrings} />
                 <HomeIcon setChoose={props.setChoose} />
             </div>
         </div>
@@ -170,4 +175,4 @@ const WholeBoardGame = (props: { setChoose: () => void }) => {
     </div>
 }
 
-export default WholeBoardGame;
+export default TriadGame;

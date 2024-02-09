@@ -5,7 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { grey } from '@mui/material/colors';
 import './settings.scss';
 
-const Settings = (props: { withSeven: boolean, setWithSeven: Dispatch<SetStateAction<boolean>>, useScaleMode: boolean, setUseScaleMode: Dispatch<SetStateAction<boolean>> }) => {
+const Settings = (props: { withSeven: boolean, setWithSeven: Dispatch<SetStateAction<boolean>>, useScaleMode?: boolean, setUseScaleMode?: Dispatch<SetStateAction<boolean>>, useAllStrings?: boolean, setUseAllStrings?: Dispatch<SetStateAction<boolean>> }) => {
 
     const [showDialog, setShowDialog] = useState(false);
 
@@ -15,7 +15,7 @@ const Settings = (props: { withSeven: boolean, setWithSeven: Dispatch<SetStateAc
 
     return <>
         <div className="settings-icon-container">
-            <SettingsIcon onClick={onClickIcon} className="settings-icon"/>
+            <SettingsIcon onClick={onClickIcon} className="settings-icon" />
         </div>
         {
             showDialog &&
@@ -23,7 +23,7 @@ const Settings = (props: { withSeven: boolean, setWithSeven: Dispatch<SetStateAc
                 <div className="settings-header">
                     <CloseIcon className="close" onClick={onClickIcon} />
                 </div>
-                <div className="seven">
+                <div className="check-option">
                     Include Seven
                     <Checkbox
                         checked={props.withSeven}
@@ -36,19 +36,38 @@ const Settings = (props: { withSeven: boolean, setWithSeven: Dispatch<SetStateAc
                         }}
                     />
                 </div>
-                <div className="scale">
-                    Include Scale
-                    <Checkbox
-                        checked={props.useScaleMode}
-                        onChange={() => props.setUseScaleMode(useScaleMode => !useScaleMode)}
-                        sx={{
-                            color: grey[800],
-                            '&.Mui-checked': {
-                                color: grey[600],
-                            },
-                        }}
-                    />
-                </div>
+                {
+                    props.useScaleMode !== undefined && props.setUseScaleMode !== undefined &&
+                    <div className="check-option">
+                        Include Scale
+                        <Checkbox
+                            checked={props.useScaleMode}
+                            onChange={() => props.setUseScaleMode?.(useScaleMode => !useScaleMode)}
+                            sx={{
+                                color: grey[800],
+                                '&.Mui-checked': {
+                                    color: grey[600],
+                                },
+                            }}
+                        />
+                    </div>
+                }
+                {
+                    props.useAllStrings !== undefined && props.setUseAllStrings !== undefined &&
+                    <div className="check-option">
+                        Use All Strings
+                        <Checkbox
+                            checked={props.useAllStrings}
+                            onChange={() => props.setUseAllStrings?.(useAllStrings => !useAllStrings)}
+                            sx={{
+                                color: grey[800],
+                                '&.Mui-checked': {
+                                    color: grey[600],
+                                },
+                            }}
+                        />
+                    </div>
+                }
             </div>
         }
     </>

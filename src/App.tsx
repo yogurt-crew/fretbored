@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Game from './components/Game';
 import WholeBoardGame from './components/WholeBoardGame';
+import TriadGame from './components/TriadGame';
 import ChooseGame from './components/home/ChooseGame';
 import './App.scss';
 
@@ -9,7 +10,8 @@ function App() {
   enum Mode {
     ChooseGame,
     ShapeGame,
-    WholeBoardGame
+    WholeBoardGame,
+    Triads
   }
 
   const [currentMode, setCurrentMode] = useState(Mode.ChooseGame);
@@ -26,15 +28,21 @@ function App() {
     setCurrentMode(Mode.WholeBoardGame);
   }
 
+  const setTriads = () => {
+    setCurrentMode(Mode.Triads);
+  }
+
   switch (currentMode) {
     case Mode.ChooseGame:
-      return <ChooseGame setShape={setShape} setBoard={setBoard} />
+      return <ChooseGame setShape={setShape} setBoard={setBoard} setTriads={setTriads} />
     case Mode.ShapeGame:
       return <Game setChoose={setChoose} />
     case Mode.WholeBoardGame:
       return <WholeBoardGame setChoose={setChoose} />
+    case Mode.Triads:
+      return <TriadGame setChoose={setChoose} />
     default:
-      return <ChooseGame setShape={setShape} setBoard={setBoard} />
+      return <ChooseGame setShape={setShape} setBoard={setBoard} setTriads={setTriads} />
   }
 }
 
